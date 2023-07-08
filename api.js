@@ -11,11 +11,6 @@ app.use(express.json());
 // Load PSID cookie from environment variable
 //const psidCookie = '__Secure-1PSID=' + process.env.PSID_COOKIE;
 
-// Define the root route
-app.get('/', (req, res) => {
-  res.send("Hello");
-});
-
 // Define the route to ask a question
 app.post('/ask', async (req, resp) => {
   try {
@@ -66,9 +61,10 @@ app.post('/ask', async (req, resp) => {
 
     // Parse the JSON response and extract the answer
     const jsonResponse = JSON.parse(JSON.parse(longestLine)[0][2]);
-    const answer = jsonResponse[0][0];
+    const answer = jsonResponse[4][0][1];
 
-    resp.send(answer);
+    resp.send(answer)
+
   } catch (err) {
     resp.send('Error: ' + err);
   }
